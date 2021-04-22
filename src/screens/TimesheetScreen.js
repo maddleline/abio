@@ -4,6 +4,17 @@ import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 const Tab = createMaterialTopTabNavigator();
+function Saturday() {
+  return (
+    <View><Text>Saturday</Text></View>
+  );
+}
+
+function Sunday() {
+  return (
+    <View><Text>Sunday</Text></View>
+  );
+}
 
 function Monday() {
   return (
@@ -25,7 +36,7 @@ function Wednesday() {
 
 function Thursday() {
   return (
-    <View><Text>Thursday</Text></View>
+    <View><Text>THU</Text></View>
   );
 }
 
@@ -37,12 +48,22 @@ function Friday() {
 
 const TimesheetScreen = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Monday" component={Monday} />
-      <Tab.Screen name="Tuesday" component={Tuesday} />
-      <Tab.Screen name="Wednesday" component={Wednesday} />
-      <Tab.Screen name="Thursday" component={Thursday} />
-      <Tab.Screen name="Friday" component={Friday} />
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: 'black',
+        inactiveTintColor: 'lightgray',
+        labelStyle: { fontSize: 12 },
+        tabStyle: {},
+        style: {},
+      }} 
+    >
+      <Tab.Screen name="SAT" component={Saturday} />
+      <Tab.Screen name="SUN" component={Sunday} />
+      <Tab.Screen name="MON" component={Monday} />
+      <Tab.Screen name="TUE" component={Tuesday} />
+      <Tab.Screen name="WED" component={Wednesday} />
+      <Tab.Screen name="THU" component={Thursday} />
+      <Tab.Screen name="FRI" component={Friday} />
     </Tab.Navigator>
   );
 }

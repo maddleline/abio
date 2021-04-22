@@ -23,7 +23,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Timesheet" component={TimesheetScreen} />
+        <Stack.Screen name="Time" component={TimesheetScreen} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Settings" component={Settings} />
       </Stack.Navigator>

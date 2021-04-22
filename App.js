@@ -1,12 +1,32 @@
+import * as React from 'react';
+
+import { Text, View } from 'react-native';
+
+import { NavigationContainer } from '@react-navigation/native';
 import TimesheetScreen from './src/screens/TimesheetScreen';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const navigator = createStackNavigator({
-  Timesheet: TimesheetScreen
-}, {
-  initialRouteName: 'Timesheet',
-  defaultNavigationOptions: { title: 'Time'}
-})
+function Profile() {
+  return (
+    <View><Text>Profile</Text></View>
+  );
+}
+function Settings() {
+  return (
+    <View><Text>Settings</Text></View>
+  );
+}
 
-export default createAppContainer(navigator);
+const Stack = createStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Timesheet" component={TimesheetScreen} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Settings" component={Settings} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}

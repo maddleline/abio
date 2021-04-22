@@ -1,32 +1,21 @@
 import * as React from 'react';
 
-import { Text, View } from 'react-native';
-
+import ComingSoon from './src/screens/ComingSoonScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import TimesheetScreen from './src/screens/TimesheetScreen';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
-function Profile() {
-  return (
-    <View><Text>Profile</Text></View>
-  );
-}
-function Settings() {
-  return (
-    <View><Text>Settings</Text></View>
-  );
-}
-
-const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Time" component={TimesheetScreen} />
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Settings" component={Settings} />
-      </Stack.Navigator>
+      <Drawer.Navigator screenOptions={{ headerShown: true, swipeEnabled: false }}>
+        <Drawer.Screen name="Time" component={TimesheetScreen} />
+        <Drawer.Screen name="Expenses" component={ComingSoon} />
+        <Drawer.Screen name="Reports" component={ComingSoon} />
+        <Drawer.Screen name="Settings" component={ComingSoon} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }

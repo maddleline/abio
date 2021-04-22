@@ -1,48 +1,16 @@
 import { Text, View } from 'react-native';
 
+import { AntDesign } from '@expo/vector-icons';
 import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 const Tab = createMaterialTopTabNavigator();
-function Saturday() {
-  return (
-    <View><Text>Saturday</Text></View>
-  );
-}
 
-function Sunday() {
+function Day({name}) {
   return (
-    <View><Text>Sunday</Text></View>
-  );
-}
-
-function Monday() {
-  return (
-    <View><Text>Monday</Text></View>
-  );
-}
-
-function Tuesday() {
-  return (
-    <View><Text>Tuesday</Text></View>
-  );
-}
-
-function Wednesday() {
-  return (
-    <View><Text>Wednesday</Text></View>
-  );
-}
-
-function Thursday() {
-  return (
-    <View><Text>THU</Text></View>
-  );
-}
-
-function Friday() {
-  return (
-    <View><Text>Friday</Text></View>
+    <View>
+      <Text>{name}</Text>
+    </View>
   );
 }
 
@@ -52,18 +20,16 @@ const TimesheetScreen = () => {
       tabBarOptions={{
         activeTintColor: 'black',
         inactiveTintColor: 'lightgray',
-        labelStyle: { fontSize: 12 },
-        tabStyle: {},
-        style: {},
+        labelStyle: { fontSize: 12 }
       }} 
     >
-      <Tab.Screen name="SAT" component={Saturday} />
-      <Tab.Screen name="SUN" component={Sunday} />
-      <Tab.Screen name="MON" component={Monday} />
-      <Tab.Screen name="TUE" component={Tuesday} />
-      <Tab.Screen name="WED" component={Wednesday} />
-      <Tab.Screen name="THU" component={Thursday} />
-      <Tab.Screen name="FRI" component={Friday} />
+      <Tab.Screen name="SAT">{()=><Day name="Saturday" />}</Tab.Screen>
+      <Tab.Screen name="SUN">{()=><Day name="Sunday" />}</Tab.Screen>
+      <Tab.Screen name="MON">{()=><Day name="Monday" />}</Tab.Screen>
+      <Tab.Screen name="TUE">{()=><Day name="Tuesday" />}</Tab.Screen>
+      <Tab.Screen name="WED">{()=><Day name="Wednesday" />}</Tab.Screen>
+      <Tab.Screen name="THU">{()=><Day name="Thursday" />}</Tab.Screen>
+      <Tab.Screen name="FRI">{()=><Day name="Friday" />}</Tab.Screen>
     </Tab.Navigator>
   );
 }

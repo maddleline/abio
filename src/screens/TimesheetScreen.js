@@ -1,4 +1,4 @@
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import React, { useState } from 'react'
 
 import { AntDesign } from '@expo/vector-icons';
@@ -20,6 +20,31 @@ const TimesheetScreen = () => {
   const toggleOverlay = () => {
     setVisible(!visible);
   };
+
+  const DATA = [
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      title: 'First Item',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+      title: 'Second Item',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      title: 'Third Item',
+    },
+  ];
+
+  const Item = ({ title }) => (
+    <View style={styles.item}>
+      <Text style={styles.title}>{title}</Text>
+    </View>
+  );
+
+  const renderItem = ({ item }) => (
+    <Item title={item.title} />
+  );
   
   return (
     <View style={styles.container}>
@@ -45,23 +70,31 @@ const TimesheetScreen = () => {
         transparent={true}
         visible={visible}
         onRequestClose={() => {
-          // this.closeButtonFunction()
+          // closeButtonFunction()
         }}>
-        <View
-          style={{
-            height: '50%',
-            marginTop: 'auto',
-            backgroundColor: 'white'
-          }}>
-          <View style={styles.footer}>
-            <Text style={styles.modalHeaderText}>Job assignments</Text>
-          </View>
-          <TouchableOpacity
-            style={styles.addButton}
-            onPress={() => toggleOverlay()}>
-            <Text style={styles.addButtonText}>Close</Text>
+          <TouchableOpacity 
+            style={styles.container} 
+            activeOpacity={1} 
+            onPressOut={() => {setVisible(false)}}
+          >
+            <View
+              style={{
+                height: '50%',
+                marginTop: 'auto',
+                backgroundColor: 'white'
+              }}>
+                <TouchableWithoutFeedback>
+                  <View style={styles.container}>
+                    <Text style={styles.modalHeaderText}>Job assignments</Text>
+                    <FlatList
+                      data={DATA}
+                      renderItem={renderItem}
+                      keyExtractor={item => item.id}
+                    />
+                  </View>
+                </TouchableWithoutFeedback>
+            </View>
           </TouchableOpacity>
-        </View>
       </Modal>
     </View>
   );
@@ -77,7 +110,14 @@ const styles = StyleSheet.create({
     right: 24
   },
   modalHeaderText: {
+    padding: 24,
     fontSize: 32
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
   }
 });
 

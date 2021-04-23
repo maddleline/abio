@@ -1,4 +1,4 @@
-import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { FlatList, Modal, Pressable, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import React, { useState } from 'react'
 
 import { AntDesign } from '@expo/vector-icons';
@@ -18,15 +18,17 @@ function Day({name}) {
 const TimesheetScreen = () => {
   const [visible, setVisible] = useState(false);
 
-  const toggleOverlay = () => {
-    setVisible(!visible);
-  };
+  const onPressFunction = () => {
+    setVisible(false);
+  }
 
   const renderItem = ({ item }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{item.supervisor_job_supervisor} - {item.job_description}</Text>
-    </View>
-  );
+      <Pressable onPress={onPressFunction}>
+        <View style={styles.item}>
+          <Text style={styles.title}>{item.supervisor_job_supervisor} - {item.job_description}</Text>
+        </View>
+      </Pressable>
+  )
   
   return (
     <View style={styles.container}>
@@ -46,7 +48,7 @@ const TimesheetScreen = () => {
         <Tab.Screen name="FRI">{()=><Day name="Friday" />}</Tab.Screen>
       </Tab.Navigator>
 
-      <AntDesign style={styles.icon} name="pluscircle" size={64} color="green" onPress={() => { setVisible(true); }} />
+      <AntDesign style={styles.icon} name="pluscircle" size={64} color="green" onPress={() => setVisible(true)} />
       <Modal
         animationType="slide"
         transparent={true}
@@ -93,14 +95,13 @@ const styles = StyleSheet.create({
     right: 24
   },
   modalHeaderText: {
-    padding: 24,
-    fontSize: 32
+    padding: 20,
+    fontSize: 24 
   },
   item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    borderColor: 'gray',
+    borderBottomWidth: 0.25,
+    padding: 20
   }
 });
 

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 import { AntDesign } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import data from '../data/jobs.json';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -21,29 +22,10 @@ const TimesheetScreen = () => {
     setVisible(!visible);
   };
 
-  const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-    },
-  ];
-
-  const Item = ({ title }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  );
-
   const renderItem = ({ item }) => (
-    <Item title={item.title} />
+    <View style={styles.item}>
+      <Text style={styles.title}>{item.supervisor_job_supervisor} - {item.job_description}</Text>
+    </View>
   );
   
   return (
@@ -87,9 +69,10 @@ const TimesheetScreen = () => {
                   <View style={styles.container}>
                     <Text style={styles.modalHeaderText}>Job assignments</Text>
                     <FlatList
-                      data={DATA}
+                      data={data.AbioMobileData_row}
                       renderItem={renderItem}
-                      keyExtractor={item => item.id}
+                      // need a better key
+                      keyExtractor={item => `${item.supervisor_job_job}-${item.supervisor_job_supervisor}`}
                     />
                   </View>
                 </TouchableWithoutFeedback>
@@ -102,11 +85,11 @@ const TimesheetScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%'
+    flex: 1
   },
   icon: {
     position: 'absolute',
-    bottom: 128,
+    bottom: 24,
     right: 24
   },
   modalHeaderText: {

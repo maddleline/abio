@@ -63,18 +63,19 @@ const TimesheetScreen = () => {
                 height: '50%',
                 marginTop: 'auto',
                 backgroundColor: 'white'
-              }}>
-                <TouchableWithoutFeedback>
-                  <View style={styles.container}>
-                    <Text style={styles.modalHeaderText}>Job assignments</Text>
-                    <FlatList
-                      data={data.AbioMobileData_row}
-                      renderItem={renderItem}
-                      // need a better key
-                      keyExtractor={item => `${item.supervisor_job_job}-${item.supervisor_job_supervisor}`}
-                    />
-                  </View>
-                </TouchableWithoutFeedback>
+              }}
+            >
+              <TouchableWithoutFeedback>
+                <View style={styles.container}>
+                  <Text style={styles.modalHeaderText}>Job assignments</Text>
+                  <FlatList
+                    data={data.AbioMobileData_row}
+                    renderItem={renderItem}
+                    // need a better key
+                    keyExtractor={item => `${item.supervisor_job_job}-${item.supervisor_job_supervisor}`}
+                  />
+                </View>
+              </TouchableWithoutFeedback>
             </View>
           </TouchableOpacity>
       </Modal>

@@ -5,6 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 import Day from '../components/Day';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import data from '../data/jobs.json';
+import getWeek from '../utils/getWeek'
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -26,6 +27,13 @@ const TimesheetScreen = () => {
       </Pressable>
     );
   }
+
+  let now = new Date();
+  let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  let lastSunday = new Date(today.setDate(today.getDate()-today.getDay()));
+  let followingWeek  = lastSunday*1 + 7*24*3600*1000;
+  const weekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  let dates = getWeek( lastSunday, followingWeek );
   
   return (
     <View style={styles.container}>
@@ -36,13 +44,9 @@ const TimesheetScreen = () => {
           labelStyle: { fontSize: 12 }
         }} 
       >
-        <Tab.Screen name="SAT">{()=><Day name="Saturday" jobs={[]} />}</Tab.Screen>
-        <Tab.Screen name="SUN">{()=><Day name="Sunday" jobs={[]} />}</Tab.Screen>
-        <Tab.Screen name="MON">{()=><Day name="Monday" jobs={monday} />}</Tab.Screen>
-        <Tab.Screen name="TUE">{()=><Day name="Tuesday" jobs={[]} />}</Tab.Screen>
-        <Tab.Screen name="WED">{()=><Day name="Wednesday" jobs={[]} />}</Tab.Screen>
-        <Tab.Screen name="THU">{()=><Day name="Thursday" jobs={[]} />}</Tab.Screen>
-        <Tab.Screen name="FRI">{()=><Day name="Friday" jobs={[]} />}</Tab.Screen>
+        {dates.map((day, index) => (
+          <Tab.Screen name={`${weekdays[day.getDay()]} ${day.getDate()}`} key={index}>{()=><Day name={day} jobs={[]} />}</Tab.Screen>
+        ))}
       </Tab.Navigator>
 
       <AntDesign style={styles.icon} name="pluscircle" size={64} color="green" onPress={() => setVisible(true)} />

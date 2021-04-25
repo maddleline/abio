@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
     padding: 36
   },
   title: {
-    color: "#20232a",
-    textAlign: "center",
-    fontSize: 30,
+    color: '#20232a',
+    textAlign: 'center',
+    fontSize: 30
   }
 });

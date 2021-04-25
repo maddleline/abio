@@ -10,7 +10,9 @@ const Drawer = createDrawerNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator screenOptions={{ headerShown: true, swipeEnabled: false }}>
+      <Drawer.Navigator
+        screenOptions={{ headerShown: true, swipeEnabled: false }}
+      >
         <Drawer.Screen name="Time" component={TimesheetScreen} />
         <Drawer.Screen name="Expenses" component={ComingSoon} />
         <Drawer.Screen name="Reports" component={ComingSoon} />

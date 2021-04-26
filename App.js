@@ -5,47 +5,36 @@ import { NavigationContainer } from '@react-navigation/native';
 import TimesheetScreen from './src/screens/TimesheetScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import getWeek from './src/utils/getWeek';
+import getCurrentWeek from './src/utils/getCurrentWeek';
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route);
+  let dates = getCurrentWeek();
   let now = new Date();
-  let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  let lastSunday = new Date(today.setDate(today.getDate() - today.getDay()));
-  let followingWeek = lastSunday * 1 + 7 * 24 * 3600 * 1000;
-  let dates = getWeek(lastSunday, followingWeek);
-  var months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
+  let today = new Date(now.toLocaleDateString());
+  const options = {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric'
+  };
 
   switch (routeName) {
     case 'SUN':
-      return `Sunday, ${dates[0].getDate()} ${months[dates[0].getMonth()]}`;
+      return dates[0].toDateString();
     case 'MON':
-      return `Monday, ${dates[1].getDate()} ${months[dates[1].getMonth()]}`;
+      return dates[1].toDateString();
     case 'TUE':
-      return `Tuesday, ${dates[2].getDate()} ${months[dates[2].getMonth()]}`;
+      return dates[2].toDateString();
     case 'WED':
-      return `Wednesday, ${dates[3].getDate()} ${months[dates[3].getMonth()]}`;
+      return dates[3].toDateString();
     case 'THU':
-      return `Thursday, ${dates[4].getDate()} ${months[dates[4].getMonth()]}`;
+      return dates[4].toDateString();
     case 'FRI':
-      return `Friday, ${dates[5].getDate()} ${months[dates[5].getMonth()]}`;
+      return dates[5].toDateString();
     case 'SAT':
-      return `Saturday, ${dates[6].getDate()} ${months[dates[6].getMonth()]}`;
+      return dates[6].toDateString();
     default:
-      return 'Time';
+      return dates[today.getDay()].toDateString();
   }
 }
 

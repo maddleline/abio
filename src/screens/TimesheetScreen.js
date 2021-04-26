@@ -14,7 +14,8 @@ import { AntDesign } from '@expo/vector-icons';
 import Day from '../components/Day';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import data from '../data/jobs.json';
-import getWeek from '../utils/getWeek';
+import getCurrentWeek from '../utils/getCurrentWeek';
+import getWeekday from '../utils/getWeekday';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -39,12 +40,7 @@ const TimesheetScreen = () => {
     );
   };
 
-  let now = new Date();
-  let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  let lastSunday = new Date(today.setDate(today.getDate() - today.getDay()));
-  let followingWeek = lastSunday * 1 + 7 * 24 * 3600 * 1000;
-  const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  let dates = getWeek(lastSunday, followingWeek);
+  let dates = getCurrentWeek();
 
   return (
     <View style={styles.container}>
@@ -56,7 +52,7 @@ const TimesheetScreen = () => {
         }}
       >
         {dates.map((day, index) => (
-          <Tab.Screen name={weekdays[day.getDay()]} key={index}>
+          <Tab.Screen name={getWeekday(day.getDay())} key={index}>
             {() => <Day name={day} jobs={[]} />}
           </Tab.Screen>
         ))}

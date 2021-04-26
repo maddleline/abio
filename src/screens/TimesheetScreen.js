@@ -16,6 +16,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import data from '../data/jobs.json';
 import getCurrentWeek from '../utils/getCurrentWeek';
 import getWeekday from '../utils/getWeekday';
+import getToday from '../utils/getToday';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -41,8 +42,7 @@ const TimesheetScreen = () => {
   };
 
   let dates = getCurrentWeek();
-  let now = new Date();
-  let today = new Date(now.toLocaleDateString());
+  let today = getToday();
 
   return (
     <View style={styles.container}>

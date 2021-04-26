@@ -6,17 +6,12 @@ import TimesheetScreen from './src/screens/TimesheetScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import getCurrentWeek from './src/utils/getCurrentWeek';
+import getToday from './src/utils/getToday';
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route);
   let dates = getCurrentWeek();
-  let now = new Date();
-  let today = new Date(now.toLocaleDateString());
-  const options = {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric'
-  };
+  let today = getToday();
 
   switch (routeName) {
     case 'SUN':

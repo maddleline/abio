@@ -15,7 +15,7 @@ import Day from '../components/Day';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import data from '../data/jobs.json';
 import getCurrentWeek from '../utils/getCurrentWeek';
-import getWeekday from '../utils/getWeekday';
+import convertWeekday from '../utils/convertWeekday';
 import getToday from '../utils/getToday';
 
 const Tab = createMaterialTopTabNavigator();
@@ -52,10 +52,10 @@ const TimesheetScreen = () => {
           inactiveTintColor: 'lightgray',
           labelStyle: { fontSize: 12 }
         }}
-        initialRouteName={getWeekday(today.getDay())}
+        initialRouteName={convertWeekday(today.getDay())}
       >
         {dates.map((day, index) => (
-          <Tab.Screen name={getWeekday(day.getDay())} key={index}>
+          <Tab.Screen name={convertWeekday(day.getDay())} key={index}>
             {() => <Day name={day} jobs={[]} />}
           </Tab.Screen>
         ))}

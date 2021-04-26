@@ -7,15 +7,20 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import getCurrentWeek from './src/utils/getCurrentWeek';
 import convertWeekday from './src/utils/convertWeekday';
-import getToday from './src/utils/getToday';
+import getLocalTime from './src/utils/getLocalTime';
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route);
   let dates = getCurrentWeek();
-  let today = getToday();
+  let today = getLocalTime();
+  var options = {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric'
+  };
 
   let weekdayIndex = routeName ? convertWeekday(routeName) : today.getDay();
-  return dates[weekdayIndex].toDateString();
+  return dates[weekdayIndex].toLocaleDateString('en-CA', options);
 }
 
 const Drawer = createDrawerNavigator();

@@ -56,10 +56,7 @@ const TimesheetScreen = () => {
         }}
       >
         {dates.map((day, index) => (
-          <Tab.Screen
-            name={`${weekdays[day.getDay()]} ${day.getDate()}`}
-            key={index}
-          >
+          <Tab.Screen name={weekdays[day.getDay()]} key={index}>
             {() => <Day name={day} jobs={[]} />}
           </Tab.Screen>
         ))}

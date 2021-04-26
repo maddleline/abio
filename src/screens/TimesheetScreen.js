@@ -41,6 +41,8 @@ const TimesheetScreen = () => {
   };
 
   let dates = getCurrentWeek();
+  let now = new Date();
+  let today = new Date(now.toLocaleDateString());
 
   return (
     <View style={styles.container}>
@@ -50,6 +52,7 @@ const TimesheetScreen = () => {
           inactiveTintColor: 'lightgray',
           labelStyle: { fontSize: 12 }
         }}
+        initialRouteName={getWeekday(today.getDay())}
       >
         {dates.map((day, index) => (
           <Tab.Screen name={getWeekday(day.getDay())} key={index}>

@@ -5,25 +5,45 @@ import { NavigationContainer } from '@react-navigation/native';
 import TimesheetScreen from './src/screens/TimesheetScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import getWeek from './src/utils/getWeek';
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route);
+  let now = new Date();
+  let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  let lastSunday = new Date(today.setDate(today.getDate() - today.getDay()));
+  let followingWeek = lastSunday * 1 + 7 * 24 * 3600 * 1000;
+  let dates = getWeek(lastSunday, followingWeek);
+  var months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
 
   switch (routeName) {
     case 'SUN':
-      return 'Sunday';
+      return `Sunday, ${dates[0].getDate()} ${months[dates[0].getMonth()]}`;
     case 'MON':
-      return 'Monday';
+      return `Monday, ${dates[1].getDate()} ${months[dates[1].getMonth()]}`;
     case 'TUE':
-      return 'Tuesday';
+      return `Tuesday, ${dates[2].getDate()} ${months[dates[2].getMonth()]}`;
     case 'WED':
-      return 'Wednesday';
+      return `Wednesday, ${dates[3].getDate()} ${months[dates[3].getMonth()]}`;
     case 'THU':
-      return 'Thursday';
+      return `Thursday, ${dates[4].getDate()} ${months[dates[4].getMonth()]}`;
     case 'FRI':
-      return 'Friday';
+      return `Friday, ${dates[5].getDate()} ${months[dates[5].getMonth()]}`;
     case 'SAT':
-      return 'Saturday';
+      return `Saturday, ${dates[6].getDate()} ${months[dates[6].getMonth()]}`;
     default:
       return 'Time';
   }

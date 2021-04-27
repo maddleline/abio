@@ -1,32 +1,46 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
+import { ThemeContextConsumer } from '../contexts/themeContext';
 
-const Day = props => {
+const Day = () => {
   const renderItem = ({ item }) => (
     <View style={styles.item}>
-      <Text style={styles.title}>
-        {item.supervisor_job_supervisor} - {item.job_description}
-      </Text>
+      <Text style={styles.title}>{item.actual_date}</Text>
     </View>
   );
 
+  function isToday({ actual_date }) {
+    let actualDate = new Date(actual_date.split(' ').join('T'));
+
+    // if date is current tab
+    if (actualDate.getDay() === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return (
-    <View style={styles.container}>
-      {props.jobs.length ? (
-        <FlatList
-          data={props.jobs}
-          renderItem={renderItem}
-          // need a better key
-          keyExtractor={item =>
-            `${item.supervisor_job_job}-${item.supervisor_job_supervisor}`
-          }
-        />
-      ) : (
-        <Text style={styles.placeholderText}>
-          Select a job to start tracking time
-        </Text>
+    <ThemeContextConsumer>
+      {context => (
+        <View style={styles.container}>
+          {context.jobs.filter(isToday).length ? (
+            <FlatList
+              data={context.jobs}
+              renderItem={renderItem}
+              // need a better key
+              keyExtractor={item =>
+                `${item.supervisor_job_job}-${item.supervisor_job_supervisor}`
+              }
+            />
+          ) : (
+            <Text style={styles.placeholderText}>
+              Select a job to start tracking time
+            </Text>
+          )}
+        </View>
       )}
-    </View>
+    </ThemeContextConsumer>
   );
 };
 
@@ -45,5 +59,7 @@ const styles = StyleSheet.create({
     padding: 20
   }
 });
+
+Day.contextType = ThemeContextConsumer;
 
 export default Day;

@@ -6,7 +6,8 @@ import {
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View
+  View,
+  Button
 } from 'react-native';
 import React, { useState } from 'react';
 
@@ -55,16 +56,13 @@ const TimesheetScreen = () => {
         initialRouteName={convertWeekday(today.getDay())}
       >
         {dates.map((day, index) => (
-          <Tab.Screen name={convertWeekday(day.getDay())} key={index}>
-            {/* Using a render callback for the screen instead of specifying
-            a component prop to pass additional props to screen.
-            It's recommended to use React context and wrap
-            the navigator with a context provider to pass data to the screens. */}
-            {() => <Day name={day} jobs={[]} />}
-          </Tab.Screen>
+          <Tab.Screen
+            name={convertWeekday(day.getDay())}
+            key={index}
+            component={Day}
+          />
         ))}
       </Tab.Navigator>
-
       <AntDesign
         style={styles.icon}
         name="pluscircle"

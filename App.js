@@ -8,6 +8,7 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import getCurrentWeek from './src/utils/getCurrentWeek';
 import convertWeekday from './src/utils/convertWeekday';
 import getLocalTime from './src/utils/getLocalTime';
+import { ThemeContextProvider } from './src/contexts/themeContext';
 
 function getHeaderTitle(route) {
   const routeName = getFocusedRouteNameFromRoute(route);
@@ -28,20 +29,22 @@ const Drawer = createDrawerNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator
-        screenOptions={{ headerShown: true, swipeEnabled: false }}
-      >
-        <Drawer.Screen
-          name="Time"
-          component={TimesheetScreen}
-          options={({ route }) => ({
-            headerTitle: getHeaderTitle(route)
-          })}
-        />
-        <Drawer.Screen name="Expenses" component={ComingSoon} />
-        <Drawer.Screen name="Reports" component={ComingSoon} />
-        <Drawer.Screen name="Settings" component={ComingSoon} />
-      </Drawer.Navigator>
+      <ThemeContextProvider>
+        <Drawer.Navigator
+          screenOptions={{ headerShown: true, swipeEnabled: false }}
+        >
+          <Drawer.Screen
+            name="Time"
+            component={TimesheetScreen}
+            options={({ route }) => ({
+              headerTitle: getHeaderTitle(route)
+            })}
+          />
+          <Drawer.Screen name="Expenses" component={ComingSoon} />
+          <Drawer.Screen name="Reports" component={ComingSoon} />
+          <Drawer.Screen name="Settings" component={ComingSoon} />
+        </Drawer.Navigator>
+      </ThemeContextProvider>
     </NavigationContainer>
   );
 }
